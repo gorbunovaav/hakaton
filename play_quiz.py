@@ -7,19 +7,20 @@ import tkinter as tk
 from tkinter import messagebox
 
 
-class Play_quiz():
+class play_quiz():
     def __init__(self, quiz_theme: str):
         self.right_answer_count: int = 0
         self.root_destroyed: bool = False
-        self.quiz: dict = self.get_quiz(quiz_theme)
+        self.quiz: dict = self._get_quiz(quiz_theme)
+        self._play_quiz()
     
-    def get_quiz(self, quiz_theme: str) -> dict:
+    def _get_quiz(self, quiz_theme: str) -> dict:
         with open("quizes.json", "r") as file:
             text = file.read()
             quiz = json.loads(text)[quiz_theme]
         return quiz
     
-    def get_command(self, is_right_index: bool) -> callable:
+    def _get_command(self, is_right_index: bool) -> callable:
         def inner() -> None:
             if is_right_index:
                 self.right_answer_count += 1
@@ -27,7 +28,7 @@ class Play_quiz():
             self.main_window.destroy()
         return inner
 
-    def tell_results(self,
+    def _tell_results(self,
                      quiz: dict
                     ) -> None:
         """
@@ -43,7 +44,7 @@ class Play_quiz():
             )
         )
 
-    def play_question(self,
+    def _play_question(self,
                       index: int,
                       question: int,
                       options: dict
@@ -59,7 +60,7 @@ class Play_quiz():
                            background="#006363",  # nice dark blue
                            foreground="#ffffff",  # white
                            width="256",
-                           command=self.get_command(is_right))
+                           command=self._get_command(is_right))
 
                            for option, is_right
                            in options.items()
@@ -71,14 +72,25 @@ class Play_quiz():
             self.main_window.mainloop()
             # done with packing stuff
 
-    def play_quiz(self) -> tuple:
+    def _play_quiz(self) -> tuple:
         # options: dict
         for index, (question, options)\
             in enumerate(self.quiz.items()):
-            self.play_question(index, question, options)
+            self._play_question(index, question, options)
 
 
             # to not start next question until button clicked
             while not self.root_destroyed:
                 time.sleep(1)
-        self.tell_results(self.quiz)
+        self._tell_results(self.quiz)
+
+if __name__ == "__main__":
+    with open("quizes.json", "r") as file:
+        names = json.loads(file.read()).keys()
+    print(*names, sep="\n")
+    while True:
+        choice = input()
+        if choice in names:
+            break
+    play_quiz(choice)
+    
