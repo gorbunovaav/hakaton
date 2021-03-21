@@ -6,7 +6,7 @@ from functools import partial
 import tkinter as tk
 
 # modules
-from main import play_quiz
+from play_quiz import play_quiz
 
 
 def open_quiz() -> None:
