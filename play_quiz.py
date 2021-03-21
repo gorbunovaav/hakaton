@@ -25,7 +25,7 @@ class play_quiz():
             if is_right_index:
                 self.right_answer_count += 1
             self.root_destroyed: bool = True
-            self.main_window.destroy()
+            self.play_qz_window.destroy()
         return inner
 
     def _tell_results(self,
@@ -49,13 +49,13 @@ class play_quiz():
                       question: int,
                       options: dict
                       ) -> None:
-            self.main_window = tk.Tk()  # !!! determining main window
-            self.main_window.geometry("900x600") # !!!
+            self.play_qz_window = tk.Tk()  # !!! determining main window
+            self.play_qz_window.geometry("900x600") # !!!
 
-            question_label = tk.Label(self.main_window,
+            question_label = tk.Label(self.play_qz_window,
                                       text=f"{question} (?{index+1})"
                                      )
-            option_btns = [tk.Button(self.main_window,
+            option_btns = [tk.Button(self.play_qz_window,
                            text=option,
                            background="#006363",  # nice dark blue
                            foreground="#ffffff",  # white
@@ -69,7 +69,7 @@ class play_quiz():
             question_label.pack()
             for button in option_btns:
                 button.pack()
-            self.main_window.mainloop()
+            self.play_qz_window.mainloop()
             # done with packing stuff
 
     def _play_quiz(self) -> tuple:
@@ -93,4 +93,3 @@ if __name__ == "__main__":
         if choice in names:
             break
     play_quiz(choice)
-    
