@@ -52,15 +52,18 @@ class play_quiz():
             self.play_qz_window = tk.Tk()  # !!! determining main window
             self.play_qz_window.geometry("900x600") # !!!
 
-            question_label = tk.Label(self.play_qz_window,
-                                      text=f"{question} (?{index+1})"
-                                     )
-            option_btns = [tk.Button(self.play_qz_window,
+            question_label = tk.Label(
+                self.play_qz_window,
+                text=f"{question} (?{index+1})"
+                )
+            option_btns = [tk.Button(
+                           self.play_qz_window,
                            text=option,
                            background="#006363",  # nice dark blue
                            foreground="#ffffff",  # white
                            width="256",
-                           command=self._get_command(is_right))
+                           command=self._get_command(is_right)
+                           )
 
                            for option, is_right
                            in options.items()

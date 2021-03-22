@@ -3,6 +3,7 @@ import tkinter as tk
 
 # modules
 from open_quiz import open_quiz
+from add_quiz import add_quiz
 
 
 def posthumously_call(window: tk.Tk,
@@ -26,11 +27,11 @@ go_open_btn = tk.Button(
     command=posthumously_call(main_window, open_quiz)
 )
 go_make_btn = tk.Button(
-    text="В РАЗРАБОТКЕ",
+    text="СОЗДАТЬ ВИКТОРИНУ",
     background="#006363",  # nice dark blue
     foreground="#ffffff",  # white
     width="256",
-    # command=make_quiz
+    command=posthumously_call(main_window, add_quiz)
 )
 
 
